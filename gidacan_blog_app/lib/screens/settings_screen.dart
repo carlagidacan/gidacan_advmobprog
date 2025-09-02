@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/theme_provider.dart';
+import '../services/user_service.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -21,6 +22,17 @@ class SettingsScreen extends StatelessWidget {
               value: themeModel.isDark,
               onChanged: (_) => themeModel.toggleTheme(),
             ),
+          ),
+          const Divider(),
+          ListTile(
+            title: const Text('Logout'),
+            leading: const Icon(Icons.logout),
+            onTap: () async {
+              await UserService().logout();
+              if (context.mounted) {
+                Navigator.of(context).pushNamedAndRemoveUntil('/login', (r) => false);
+              }
+            },
           ),
         ],
       ),

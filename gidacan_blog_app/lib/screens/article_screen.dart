@@ -92,9 +92,6 @@ class _ArticleScreenState extends State<ArticleScreen> {
                 decoration: InputDecoration(
                   hintText: 'Search articles...',
                   prefixIcon: const Icon(Icons.search),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
                   contentPadding: EdgeInsets.zero,
                 ),
                 onChanged: (value) {
@@ -149,6 +146,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
                         : '';
                     return Card(
                       elevation: 1,
+                      color: Theme.of(context).cardColor,
                       child: InkWell(
                         onTap: () {
                           Navigator.push(

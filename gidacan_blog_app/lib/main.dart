@@ -5,6 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'providers/theme_provider.dart';
 import 'screens/home_screen.dart';
+import 'screens/login_screen.dart';
+import 'screens/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,14 +31,62 @@ class MainApp extends StatelessWidget {
         splitScreenMode: true,
         builder: (build, child) {
           final themeModel = build.watch<ThemeProvider>();
+          final light = ThemeData(
+            brightness: Brightness.light,
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
+            scaffoldBackgroundColor: Colors.grey[50],
+            appBarTheme: const AppBarTheme(
+              backgroundColor: Colors.white,
+              foregroundColor: Colors.black,
+              elevation: 1,
+            ),
+            cardColor: Colors.white,
+            inputDecorationTheme: InputDecorationTheme(
+              filled: true,
+              fillColor: Colors.white,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+            ),
+          );
+
+          final dark = ThemeData(
+            brightness: Brightness.dark,
+            colorScheme: ColorScheme.fromSeed(
+              seedColor: Colors.indigo,
+              brightness: Brightness.dark,
+            ).copyWith(
+              surface: const Color(0xFF1E1E22),
+              onSurface: Colors.white,
+            ),
+            scaffoldBackgroundColor: const Color(0xFF121214),
+            appBarTheme: const AppBarTheme(
+              backgroundColor: Color(0xFF1E1E22),
+              foregroundColor: Colors.white,
+              elevation: 1,
+            ),
+            cardColor: const Color(0xFF1E1E22),
+            inputDecorationTheme: InputDecorationTheme(
+              filled: true,
+              fillColor: const Color(0xFF1E1E22),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+            ),
+          );
+
           return MaterialApp(
             debugShowCheckedModeBanner: false,
-            theme: ThemeData.light(),
-            darkTheme: ThemeData.dark(),
+            theme: light,
+            darkTheme: dark,
             themeMode: themeModel.isDark ? ThemeMode.dark : ThemeMode.light,
             title: 'Blog App',
-            initialRoute: '/home',
-            routes: {'/home': (context) => const HomeScreen()},
+            initialRoute: '/splash',
+            routes: {
+              '/splash': (context) => const SplashScreen(),
+              '/login': (context) => const LoginScreen(),
+              '/home': (context) => const HomeScreen(),
+            },
           );
         },
       ),

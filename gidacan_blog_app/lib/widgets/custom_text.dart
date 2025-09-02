@@ -33,12 +33,13 @@ class CustomText extends StatelessWidget {
       overflow: overflow, 
       textAlign: textAlign, 
       style: TextStyle(
-        fontFamily: fontFamily, 
-        fontSize: fontSize, 
-        fontWeight: fontWeight, 
+        fontFamily: fontFamily,
+        fontSize: fontSize,
+        fontWeight: fontWeight,
         fontStyle: fontStyle,
         letterSpacing: letterSpacing,
-        color: color ?? Colors.black, // use black if color is null
+        // Fallback to current theme's primary text color when no color provided
+        color: color ?? Theme.of(context).colorScheme.onSurface,
       ),
     );
   }

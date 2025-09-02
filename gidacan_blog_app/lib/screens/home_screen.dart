@@ -4,7 +4,8 @@ import 'package:provider/provider.dart';
 import '../providers/theme_provider.dart';
 import 'article_screen.dart';
 import '../widgets/custom_text.dart';
-import 'settings_screen.dart'; // Import your settings page
+import 'settings_screen.dart'; // Settings
+import 'profile_screen.dart'; // Profile
 
 class HomeScreen extends StatefulWidget {
   final String username;
@@ -24,7 +25,11 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         elevation: 2,
         title: CustomText(
-          text: (_selectedIndex == 0) ? 'Articles' : 'Home',
+          text: _selectedIndex == 0
+              ? 'Articles'
+              : _selectedIndex == 1
+                  ? 'Home'
+                  : 'Account',
           fontSize: 20.sp,
           fontWeight: FontWeight.w600,
         ),
@@ -45,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
         children: const <Widget>[
           ArticleScreen(),
           Placeholder(),
-          Placeholder(),
+          ProfileScreen(),
         ],
         onPageChanged: (page) {
           setState(() {
